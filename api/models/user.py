@@ -7,8 +7,8 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
 class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32))
-    # role = db.Column(db.String(20), unique=False)
     password_hash = db.Column(db.String(128))
+    notes = db.relationship('NoteModel', backref='author', lazy='dynamic')
 
     def __init__(self, username, password):
         self.username = username
@@ -24,9 +24,6 @@ class UserModel(db.Model):
         s = Serializer(Config.SECRET_KEY, expires_in=expiration)
         return s.dumps({'id': self.id})
 
-    def get_role(self):
-        return 'admin'
-        # return self.role
 
     @staticmethod
     def verify_auth_token(token):

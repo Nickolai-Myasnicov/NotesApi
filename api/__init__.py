@@ -39,9 +39,9 @@ def verify_password(username_or_token, password):
     return True
 
 
-@auth.get_user_roles
-def get_user_roles(data):
-    from api.models.user import UserModel
-    token = data['username']
-    user = UserModel.verify_auth_token(token)
-    return user.get_role()
+# @auth.get_user_roles
+# def get_user_roles(data):
+#     from api.models.user import UserModel
+#     token = data['username']
+#     user = UserModel.verify_auth_token(token)
+#     return user.get_role()
