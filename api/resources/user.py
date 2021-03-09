@@ -4,7 +4,10 @@ from api.schemas.user import user_schema, users_schema
 
 
 class UserResource(Resource):
-    def get(self, user_id):
+    def get(self, user_id=None):
+        if user_id is None:
+            users = UserModel.query.all()
+            return users_schema.dump(users), 200
         user = UserModel.query.get(user_id)
         if not user:
             abort(404, error=f"User with id={user_id} not found")
@@ -16,6 +19,5 @@ class UserResource(Resource):
         parser.add_argument("password", required=True)
         user_data = parser.parse_args()
         user = UserModel(**user_data)
-        db.session.add(user)
-        db.session.commit()
+        user.save()
         return user_schema.dump(user), 201

@@ -24,6 +24,10 @@ class UserModel(db.Model):
         s = Serializer(Config.SECRET_KEY, expires_in=expiration)
         return s.dumps({'id': self.id})
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
 
     @staticmethod
     def verify_auth_token(token):
