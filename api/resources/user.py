@@ -1,8 +1,8 @@
 from api import Resource, reqparse, db, abort
 from api.models.user import UserModel
-from api.schemas.user import user_schema, users_schema, UserSchema
+from api.schemas.user import UserSchema, UserRequestSchema
 from flask_apispec.views import MethodResource
-from flask_apispec import marshal_with, doc
+from flask_apispec import marshal_with, doc, use_kwargs
 
 
 class UserResource(MethodResource):
@@ -13,14 +13,12 @@ class UserResource(MethodResource):
             abort(404, error=f"User with id={user_id} not found")
         return user, 200
 
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("username", required=True)
-        parser.add_argument("password", required=True)
-        user_data = parser.parse_args()
-        user = UserModel(**user_data)
+    @use_kwargs(UserRequestSchema, location=('json'))  # десериализация данных запроса
+    @marshal_with(UserSchema) # Сериализация ответа
+    def post(self, **kwargs):
+        user = UserModel(**kwargs)
         user.save()
-        return user_schema.dump(user), 201
+        return user, 201
 
 
 class UsersListResource(MethodResource):
