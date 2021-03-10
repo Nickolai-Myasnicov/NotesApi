@@ -4,6 +4,7 @@ from app import app
 from unittest import TestCase
 from api.models.user import UserModel
 from api.models.note import NoteModel
+from api.schemas.user import UserSchema
 from base64 import b64encode
 
 
@@ -21,8 +22,11 @@ class TestUsers(TestCase):
             "username": 'admin',
             'password': 'admin'
         }
-        res = self.client.post('/users', data=user_data)
+        res = self.client.post('/users',
+                               data=json.dumps(user_data),
+                               content_type='application/json')
         data = json.loads(res.data)
+        print("data = ", data)
         self.assertEqual(res.status_code, 201)
         self.assertIn('admin', data.values())
 
@@ -43,7 +47,6 @@ class TestUsers(TestCase):
     def test_user_not_found_by_id(self):
         response = self.client.get('/users/2')
         self.assertEqual(response.status_code, 404)
-
 
     def test_users_get(self):
         users_data = [

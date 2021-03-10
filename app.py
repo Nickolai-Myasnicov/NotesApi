@@ -7,7 +7,6 @@ from config import Config
 api.add_resource(UsersListResource,
                  '/users')         # GET
 api.add_resource(UserResource,
-                 '/users',                       # POST
                  '/users/<int:user_id>')         # GET, PUT
 api.add_resource(TokenResource, '/auth/token')
 api.add_resource(NoteResource,
@@ -16,5 +15,7 @@ api.add_resource(NoteResource,
                  )
 
 docs.register(UserResource)
+docs.register(UsersListResource)
+docs.register(NoteResource)
 if __name__ == '__main__':
     app.run(debug=Config.DEBUG, port=Config.PORT)
