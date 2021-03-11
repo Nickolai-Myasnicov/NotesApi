@@ -6,11 +6,16 @@ from api.models.user import UserModel
 from api.models.note import NoteModel
 from api.schemas.user import UserSchema
 from base64 import b64encode
+from config import Config
 
 
 class TestUsers(TestCase):
     def setUp(self):
         self.app = app
+        self.app.config.update({
+            'SQLALCHEMY_DATABASE_URI': Config.TEST_DATABASE_URI
+        })
+
         self.client = self.app.test_client()
 
         with self.app.app_context():
@@ -84,6 +89,9 @@ class TestUsers(TestCase):
 class TestNotes(TestCase):
     def setUp(self):
         self.app = app
+        self.app.config.update({
+            'SQLALCHEMY_DATABASE_URI': Config.TEST_DATABASE_URI
+        })
         self.client = self.app.test_client()
 
         with self.app.app_context():
@@ -98,8 +106,8 @@ class TestNotes(TestCase):
 
     def test_get_note_by_id(self):
         user_data = {
-            "username": 'test',
-            'password': 'test'
+            "username": 'admin',
+            'password': 'admin'
         }
 
         user = UserModel(**user_data)
@@ -122,21 +130,8 @@ class TestNotes(TestCase):
             'Authorization': 'Basic ' + b64encode(
                 f"{user_data['username']}:{user_data['password']}".encode('ascii')).decode('utf-8')
         }
+        # print("header =", headers)
         res = self.client.get('/notes', headers=headers)
         self.assertEqual(res.status_code, 200)
         data = json.loads(res.data)
         self.assertEqual(len(data), 2)
-
-        # ...
-        # user_data = [{"username": "Vazgen", "password": "test"},
-        #              {"username": "Mihalych", "password": "test"},
-        #              {"username": "Vasilij", "password": "test"}]
-        #
-        # for user in user_data:
-        #     self.client.post('/users', data=user)
-        #
-        # users = UserModel.query.all()
-        # self.assertEqual(len(users), len(user_data))
-        #
-        # # for user in users:
-        # self.assertEqual(user_data[0]["username"], users[0]["username"])

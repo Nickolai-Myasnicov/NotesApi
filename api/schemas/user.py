@@ -16,7 +16,3 @@ class UserRequestSchema(ma.SQLAlchemySchema):
 
     username = ma.Str()
     password = ma.Str()
-
-
-user_schema = UserSchema()
-users_schema = UserSchema(many=True)
