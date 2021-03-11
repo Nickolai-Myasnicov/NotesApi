@@ -7,9 +7,10 @@ from flask_apispec import marshal_with, doc, use_kwargs
 
 @doc(tags=['Notes'])
 class NoteResource(MethodResource):
+    # @doc({"security": {"basicAuth": []}})
     @marshal_with(NoteSchema)
     @auth.login_required
-    def get(self, note_id=None):
+    def get(self, note_id):
         author = g.user
         note = NoteModel.query.get(note_id)
         if not note:
@@ -53,6 +54,13 @@ class NotesListResource(MethodResource):
     def post(self, **kwargs):
         author = g.user
         print("author.username = ", author.username)
-        note = NoteModel(author_id=author.id, text=kwargs["text"])
+        note = NoteModel(author_id=author.id, **kwargs)
         note.save()
         return note, 201
+
+
+class NotesPublicResource(MethodResource):
+    @marshal_with(NoteSchema(many=True))
+    def get(self):
+        notes = NoteModel.query.filter_by(private=False)
+        return notes, 200

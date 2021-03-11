@@ -130,6 +130,7 @@ class TestNotes(TestCase):
             'Authorization': 'Basic ' + b64encode(
                 f"{user_data['username']}:{user_data['password']}".encode('ascii')).decode('utf-8')
         }
+        # "login:password" --> b64 --> 'ksjadhsadfh474=+d'
         # print("header =", headers)
         res = self.client.get('/notes', headers=headers)
         self.assertEqual(res.status_code, 200)
