@@ -5,9 +5,8 @@ from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, doc, use_kwargs
 
 
-@doc(tags=['Notes'])
+@doc(tags=['Notes'], security= [{"basicAuth": []}])
 class NoteResource(MethodResource):
-    @doc({"security": {"basicAuth": []}})
     @auth.login_required
     @marshal_with(NoteSchema)
     def get(self, note_id):
@@ -42,7 +41,7 @@ class NoteResource(MethodResource):
         return note, 200
 
 
-@doc(tags=['Notes'])
+@doc(tags=['Notes'], security= [{"basicAuth": []}])
 class NotesListResource(MethodResource):
     @auth.login_required
     @marshal_with(NoteSchema(many=True))
@@ -62,6 +61,7 @@ class NotesListResource(MethodResource):
         return note, 201
 
 
+@doc(tags=['Notes'])
 class NotesPublicResource(MethodResource):
     @marshal_with(NoteSchema(many=True))
     def get(self):
