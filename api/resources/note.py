@@ -1,11 +1,13 @@
 from api import reqparse, db, auth, abort, g, api
 from api.models.note import NoteModel
+from api.models.tag import TagModel
 from api.schemas.note import NoteSchema, NoteRequestSchema
 from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, doc, use_kwargs
+from webargs import fields
 
 
-@doc(tags=['Notes'], security= [{"basicAuth": []}])
+@doc(tags=['Notes'], security=[{"basicAuth": []}])
 class NoteResource(MethodResource):
     @auth.login_required
     @marshal_with(NoteSchema)
@@ -41,7 +43,7 @@ class NoteResource(MethodResource):
         return note, 200
 
 
-@doc(tags=['Notes'], security= [{"basicAuth": []}])
+@doc(tags=['Notes'], security=[{"basicAuth": []}])
 class NotesListResource(MethodResource):
     @auth.login_required
     @marshal_with(NoteSchema(many=True))
@@ -67,6 +69,24 @@ class NotesPublicResource(MethodResource):
     def get(self):
         notes = NoteModel.query.filter_by(private=False)
         return notes, 200
+
+
+# body: {“tags”: [id1, id2]}
+@doc(tags=['Notes'])
+class NoteSetTagsResource(MethodResource):
+    @doc(summary="Set tags to Note")
+    @use_kwargs({"tags": fields.List(fields.Int())}, location=('json'))
+    @marshal_with(NoteSchema)
+    def put(self, note_id, **kwargs):
+        note = NoteModel.query.get(note_id)
+        if not note:
+            abort(404, error=f"note {note_id} not found")
+        print("note kwargs = ", kwargs)
+        for tag_id in kwargs["tags"]:
+            tag = TagModel.query.get(tag_id)
+            note.tags.append(tag)
+        note.save()
+        return note, 200
 
 #       schema        flask-restful
 # object ------>  dict ----------> json
