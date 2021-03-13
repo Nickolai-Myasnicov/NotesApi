@@ -88,5 +88,15 @@ class NoteSetTagsResource(MethodResource):
         note.save()
         return note, 200
 
-#       schema        flask-restful
-# object ------>  dict ----------> json
+
+# /notes/filter?tag=<tag_name>
+@doc(tags=['Notes'])
+class NotesFilterResource(MethodResource):
+    # location=query - извлекает параметры из get запроса.
+    @use_kwargs({"tag": fields.Str()}, location="query")
+    def get(self, **kwargs):
+        print("kwargs = ", kwargs)
+        # TODO: реализуем выборку в БД пофильтру: <имя тега>
+        
+        return {}, 200
+

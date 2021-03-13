@@ -10,3 +10,23 @@ class Config:
     DEBUG = True
     PORT = 5000
     SECRET_KEY = "My secret key =)"
+
+
+# BAD
+# GET: /notes/filter/tag/<tag_name>/author/<author_name>
+
+# GOOD
+# GET: /notes/filter?tag=<tag_name>&author=<author_name>
+
+# EXCELENT
+# GET: /notes?filter[tag]=<tag_name>
+
+
+
+
+
+
+
+
+
+

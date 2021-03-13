@@ -2,6 +2,10 @@ from api import ma
 from api.models.user import UserModel
 
 
+#       schema        flask-restful
+# object ------>  dict ----------> json
+
+
 # Сериализация ответа(response)
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
