@@ -1,10 +1,11 @@
-from api import reqparse, db, auth, abort, g, api
+from api import reqparse, db, auth, abort, g, api, app
 from api.models.note import NoteModel
 from api.models.tag import TagModel
 from api.schemas.note import NoteSchema, NoteRequestSchema
 from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, doc, use_kwargs
 from webargs import fields
+import pdb
 
 
 @doc(tags=['Notes'], security=[{"basicAuth": []}])
@@ -15,6 +16,7 @@ class NoteResource(MethodResource):
         author = g.user
         note = NoteModel.query.get(note_id)
         if not note:
+            app.logger.warning("Кто-то пытается получить точего нет -)")
             abort(404, error=f"Note with id={note_id} not found")
         if note.author != author:
             abort(403, error=f"Forbidden")
@@ -94,9 +96,10 @@ class NoteSetTagsResource(MethodResource):
 class NotesFilterResource(MethodResource):
     # location=query - извлекает параметры из get запроса.
     @use_kwargs({"tag": fields.Str()}, location="query")
+    @marshal_with(NoteSchema(many=True))
     def get(self, **kwargs):
-        print("kwargs = ", kwargs)
-        # TODO: реализуем выборку в БД пофильтру: <имя тега>
-        
-        return {}, 200
+        # print("kwargs = ", kwargs)
+        notes = NoteModel.query.filter(NoteModel.tags.any(name=kwargs['tag']))
+        # pdb.set_trace()
+        return notes, 200
 

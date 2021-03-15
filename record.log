@@ -1,0 +1,75 @@
+2021-03-15 09:42:07,663 WARNING werkzeug :  * Debugger is active!
+2021-03-15 09:42:07,664 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 09:45:58,384 INFO werkzeug :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-03-15 09:45:58,385 INFO werkzeug :  * Restarting with stat
+2021-03-15 09:45:58,727 WARNING werkzeug :  * Debugger is active!
+2021-03-15 09:45:58,728 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 09:47:21,748 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 09:47:21] "[37mGET /notes/filter?tag=tag-3 HTTP/1.1[0m" 200 -
+2021-03-15 09:49:46,155 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/resources/note.py', reloading
+2021-03-15 09:49:46,249 INFO werkzeug :  * Restarting with stat
+2021-03-15 09:49:46,600 WARNING werkzeug :  * Debugger is active!
+2021-03-15 09:49:46,600 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 09:50:35,906 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/resources/note.py', reloading
+2021-03-15 09:50:36,013 INFO werkzeug :  * Restarting with stat
+2021-03-15 09:50:36,354 WARNING werkzeug :  * Debugger is active!
+2021-03-15 09:50:36,354 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 09:51:19,278 WARNING api : Кто-то пытается получить точего нет -)
+2021-03-15 09:51:19,279 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 09:51:19] "[33mGET /notes/45 HTTP/1.1[0m" 404 -
+2021-03-15 10:36:16,813 INFO werkzeug :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-03-15 10:36:16,813 INFO werkzeug :  * Restarting with stat
+2021-03-15 10:36:17,161 WARNING werkzeug :  * Debugger is active!
+2021-03-15 10:36:17,162 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 10:37:15,392 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 10:37:15] "[37mGET /notes HTTP/1.1[0m" 200 -
+2021-03-15 10:46:26,052 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/note.py', reloading
+2021-03-15 10:46:26,152 INFO werkzeug :  * Restarting with stat
+2021-03-15 10:46:26,505 WARNING werkzeug :  * Debugger is active!
+2021-03-15 10:46:26,505 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 10:46:39,699 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 10:46:39] "[37mGET /notes HTTP/1.1[0m" 200 -
+2021-03-15 11:11:50,304 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/models/user.py', reloading
+2021-03-15 11:11:50,424 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:11:50,801 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:11:50,802 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:11:57,824 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:11:57] "[37mGET /notes HTTP/1.1[0m" 200 -
+2021-03-15 11:13:10,580 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:13:10] "[37mGET /tags HTTP/1.1[0m" 200 -
+2021-03-15 11:14:42,933 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/tag.py', reloading
+2021-03-15 11:14:43,033 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:14:44,274 INFO werkzeug :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-03-15 11:14:44,274 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:14:44,621 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:14:44,622 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:14:57,254 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:14:57] "[35m[1mGET /tags HTTP/1.1[0m" 500 -
+2021-03-15 11:15:40,014 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/tag.py', reloading
+2021-03-15 11:15:40,109 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:15:40,458 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:15:40,459 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:15:45,134 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:15:45] "[37mGET /tags HTTP/1.1[0m" 200 -
+2021-03-15 11:15:56,213 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:15:56] "[37mGET /notes HTTP/1.1[0m" 200 -
+2021-03-15 11:16:56,949 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/user.py', reloading
+2021-03-15 11:16:57,052 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:16:57,410 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:16:57,411 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:17:02,775 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:17:02] "[35m[1mGET /notes HTTP/1.1[0m" 500 -
+2021-03-15 11:17:21,566 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/note.py', reloading
+2021-03-15 11:17:21,673 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:17:22,032 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:17:22,033 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:17:26,035 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:17:26] "[35m[1mGET /notes HTTP/1.1[0m" 500 -
+2021-03-15 11:18:13,925 INFO werkzeug :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-03-15 11:18:13,926 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:18:14,281 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:18:14,282 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:18:19,150 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:18:19] "[35m[1mGET /notes HTTP/1.1[0m" 500 -
+2021-03-15 11:18:42,720 INFO werkzeug :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-03-15 11:18:42,720 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:18:43,105 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:18:43,105 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:18:57,194 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/user.py', reloading
+2021-03-15 11:18:57,304 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:18:57,656 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:18:57,656 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:19:00,328 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:19:00] "[35m[1mGET /notes HTTP/1.1[0m" 500 -
+2021-03-15 11:21:13,531 INFO werkzeug :  * Detected change in '/home/boo/Projects/NotesApi/api/schemas/note.py', reloading
+2021-03-15 11:21:13,645 INFO werkzeug :  * Restarting with stat
+2021-03-15 11:21:14,024 WARNING werkzeug :  * Debugger is active!
+2021-03-15 11:21:14,024 INFO werkzeug :  * Debugger PIN: 104-465-111
+2021-03-15 11:21:17,889 INFO werkzeug : 127.0.0.1 - - [15/Mar/2021 11:21:17] "[37mGET /notes HTTP/1.1[0m" 200 -

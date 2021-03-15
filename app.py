@@ -51,5 +51,6 @@ docs.register(NotesPublicResource)
 docs.register(TagResource)
 docs.register(TagsListResource)
 docs.register(NoteSetTagsResource)
+docs.register(NotesFilterResource)
 if __name__ == '__main__':
     app.run(debug=Config.DEBUG, port=Config.PORT)
