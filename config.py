@@ -10,7 +10,8 @@ class Config:
     DEBUG = True
     PORT = 5000
     SECRET_KEY = "My secret key =)"
-
+    UPLOAD_FOLDER_NAME = 'upload'
+    UPLOAD_FOLDER = os.path.join(base_dir, UPLOAD_FOLDER_NAME)
 
 # BAD
 # GET: /notes/filter/tag/<tag_name>/author/<author_name>
@@ -20,13 +21,3 @@ class Config:
 
 # EXCELENT
 # GET: /notes?filter[tag]=<tag_name>
-
-
-
-
-
-
-
-
-
-

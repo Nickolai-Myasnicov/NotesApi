@@ -19,7 +19,7 @@ class UnicodeApi(Api):
         }
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=Config.UPLOAD_FOLDER)
 app.config.from_object(Config)
 
 security_definitions = {
@@ -27,12 +27,12 @@ security_definitions = {
         "type": "basic"
     }
 }
-
+ma_plugin = MarshmallowPlugin()
 app.config.update({
     'APISPEC_SPEC': APISpec(
         title='Notes Project',
         version='v1',
-        plugins=[MarshmallowPlugin()],
+        plugins=[ma_plugin],
         securityDefinitions=security_definitions,
         security=[],
         openapi_version='2.0.0'
@@ -41,13 +41,13 @@ app.config.update({
     'APISPEC_SWAGGER_UI_URL': '/swagger-ui'  # URI UI of API Doc
 })
 
-logging.basicConfig(filename='record.log',
-                   level=logging.INFO,
-                   format=f'%(asctime)s %(levelname)s %(name)s : %(message)s')
-# Настройка уровня логирования flask
-app.logger.setLevel(logging.INFO)
-# Настройка уровня логирования сервера-разработки werkzeug
-logging.getLogger('werkzeug').setLevel(logging.INFO)
+# logging.basicConfig(filename='record.log',
+#                    level=logging.INFO,
+#                    format=f'%(asctime)s %(levelname)s %(name)s : %(message)s')
+# # Настройка уровня логирования flask
+# app.logger.setLevel(logging.INFO)
+# # Настройка уровня логирования сервера-разработки werkzeug
+# logging.getLogger('werkzeug').setLevel(logging.INFO)
 
 api = UnicodeApi(app)
 db = SQLAlchemy(app)
