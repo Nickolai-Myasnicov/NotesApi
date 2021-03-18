@@ -6,3 +6,4 @@ tmp/
 *.db
 *.pyc
 *.log
+*.pot

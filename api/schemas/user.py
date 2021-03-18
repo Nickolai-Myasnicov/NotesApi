@@ -7,10 +7,10 @@ from api.models.user import UserModel
 
 
 # Сериализация ответа(response)
-class UserSchema(ma.SQLAlchemySchema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserModel
-        # fields = ('id', 'username')
+        fields = ('id', 'username')
 
     id = ma.auto_field()
     username = ma.auto_field()

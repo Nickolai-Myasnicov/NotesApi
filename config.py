@@ -1,6 +1,15 @@
 import os
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
+ma_plugin = MarshmallowPlugin()
+
+security_definitions = {
+    "basicAuth": {
+        "type": "basic"
+    }
+}
 
 
 class Config:
@@ -12,6 +21,20 @@ class Config:
     SECRET_KEY = "My secret key =)"
     UPLOAD_FOLDER_NAME = 'upload'
     UPLOAD_FOLDER = os.path.join(base_dir, UPLOAD_FOLDER_NAME)
+    APISPEC_SPEC = APISpec(
+        title='Notes Project',
+        version='v1',
+        plugins=[ma_plugin],
+        securityDefinitions=security_definitions,
+        security=[],
+        openapi_version='2.0.0'
+    )
+    APISPEC_SWAGGER_URL = '/swagger'  # URI API Doc JSON
+    APISPEC_SWAGGER_UI_URL = '/swagger-ui'  # URI UI of API Doc
+    RESTFUL_JSON = {
+        'ensure_ascii': False,
+    }
+    LANGUAGES = ['en', 'ru']
 
 # BAD
 # GET: /notes/filter/tag/<tag_name>/author/<author_name>

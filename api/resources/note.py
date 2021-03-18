@@ -6,6 +6,7 @@ from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, doc, use_kwargs
 from webargs import fields
 import pdb
+from flask_babel import _
 
 
 @doc(tags=['Notes'], security=[{"basicAuth": []}])
@@ -16,8 +17,9 @@ class NoteResource(MethodResource):
         author = g.user
         note = NoteModel.query.get(note_id)
         if not note:
-            app.logger.warning("Кто-то пытается получить точего нет -)")
-            abort(404, error=f"Note with id={note_id} not found")
+            # app.logger.warning("Кто-то пытается получить точего нет -)")
+            abort(404, error=_("Note with id=%(note_id) not found"), note_id=note_id)
+            # abort(404, error=f"Note with id={note_id} not found")
         if note.author != author:
             abort(403, error=f"Forbidden")
         return note, 200
