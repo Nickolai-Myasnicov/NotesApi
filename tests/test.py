@@ -20,7 +20,9 @@ class TestUsers(TestCase):
             "username": 'admin',
             'password': 'admin'
         }
-        res = self.client.post('/users', data=user_data)
+        res = self.client.post('/users',
+                               data=json.dumps(user_data),
+                               content_type='application/json')
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 201)
         self.assertIn('admin', data.values())
