@@ -5,6 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_httpauth import HTTPBasicAuth
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
+from flask_apispec.extension import FlaskApiSpec
 
 
 class UnicodeApi(Api):
@@ -17,11 +20,23 @@ class UnicodeApi(Api):
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config.update({
+    'APISPEC_SPEC': APISpec(
+        title='Notes Project',
+        version='v1',
+        plugins=[MarshmallowPlugin()],
+        openapi_version='2.0.0'
+    ),
+    'APISPEC_SQAGGER_URL': '/swagger',
+    'APISPEC_SWAGGER-UI_URL': '/swagger-ui'
+})
+
 api = UnicodeApi(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
 auth = HTTPBasicAuth()
+docs = FlaskApiSpec(app)
 
 
 @auth.verify_password
