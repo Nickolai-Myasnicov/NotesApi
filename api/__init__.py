@@ -20,15 +20,24 @@ class UnicodeApi(Api):
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+security_definitions = {
+    "basicAuth": {
+        "type": "basic"
+    }
+}
+
 app.config.update({
     'APISPEC_SPEC': APISpec(
         title='Notes Project',
         version='v1',
         plugins=[MarshmallowPlugin()],
+        securityDefinitions=security_definitions,
+        security=[],
         openapi_version='2.0.0'
     ),
-    'APISPEC_SQAGGER_URL': '/swagger',
-    'APISPEC_SWAGGER-UI_URL': '/swagger-ui'
+    'APISPEC_SWAGGER_URL': '/swagger',
+    'APISPEC_SWAGGER_UI_URL': '/swagger-ui'
 })
 
 api = UnicodeApi(app)
@@ -44,6 +53,7 @@ def verify_password(username_or_token, password):
     from api.models.user import UserModel
     # сначала проверяем authentication token
     print("username_or_token = ", username_or_token)
+    print("password = ", password)
     user = UserModel.verify_auth_token(username_or_token)
     if not user:
         # потом авторизация

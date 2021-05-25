@@ -28,7 +28,6 @@ class UserModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-
     @staticmethod
     def verify_auth_token(token):
         s = Serializer(Config.SECRET_KEY)

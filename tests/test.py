@@ -4,12 +4,18 @@ from app import app
 from unittest import TestCase
 from api.models.user import UserModel
 from api.models.note import NoteModel
+from api.schemas.user import UserSchema
 from base64 import b64encode
+from config import Config
 
 
 class TestUsers(TestCase):
     def setUp(self):
         self.app = app
+        self.app.config.update({
+            'SQLALCHEMY_DATABASE_URI': Config.TEST_DATABASE_URI
+        })
+
         self.client = self.app.test_client()
 
         with self.app.app_context():
@@ -24,6 +30,7 @@ class TestUsers(TestCase):
                                data=json.dumps(user_data),
                                content_type='application/json')
         data = json.loads(res.data)
+        print("data = ", data)
         self.assertEqual(res.status_code, 201)
         self.assertIn('admin', data.values())
 
@@ -44,7 +51,6 @@ class TestUsers(TestCase):
         response = self.client.get('/users/2')
         self.assertEqual(response.status_code, 404)
 
-
     def test_users_get(self):
         users_data = [
             {
@@ -64,8 +70,8 @@ class TestUsers(TestCase):
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         print(data)
-        # self.assertEqual(data[0]["username"], users_data[0]["username"])
-        # self.assertEqual(data[1]["username"], users_data[1]["username"])
+        self.assertEqual(data[0]["username"], users_data[0]["username"])
+        self.assertEqual(data[1]["username"], users_data[1]["username"])
 
     def test_user_not_found(self):
         res = self.client.get('/users/1')
@@ -80,6 +86,9 @@ class TestUsers(TestCase):
 class TestNotes(TestCase):
     def setUp(self):
         self.app = app
+        self.app.config.update({
+            'SQLALCHEMY_DATABASE_URI': Config.TEST_DATABASE_URI
+        })
         self.client = self.app.test_client()
 
         with self.app.app_context():
@@ -92,8 +101,8 @@ class TestNotes(TestCase):
 
     def test_get_note_by_id(self):
         user_data = {
-            "username": 'test',
-            "password": 'test'
+            "username": 'admin',
+            "password": 'admin'
         }
 
         user = UserModel(**user_data)
