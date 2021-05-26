@@ -5,10 +5,10 @@ from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, doc, use_kwargs
 
 
-@doc(tags=['Notes'])
+@doc(tags=['Notes'], security=[{"basicAuth": []}])
 class NoteResource(MethodResource):
-    @marshal_with(NoteSchema)
     @auth.login_required
+    @marshal_with(NoteSchema)
     def get(self, note_id):
         author = g.user
         note = NoteModel.query.get(note_id)
@@ -19,26 +19,26 @@ class NoteResource(MethodResource):
         return note, 200
 
     @auth.login_required
-    def put(self, note_id):
-        note_parser = reqparse.RequestParser()
-        note_parser.add_argument("text", required=True)
-        note_data = note_parser.parse_args()
+    def put(self, note_id, **kwargs):
         author = g.user
         note = NoteModel.query.get(note_id)
         if not note:
             abort(404, error=f"note {note_id} not found")
         if note.author != author:
             abort(403, error=f"Forbidden")
-        note.text = note_data["text"]
+        note.text = kwargs["text"]
+        note.private = kwargs["private"]
         note.save()
         return note, 200
 
     @auth.login_required
-    def delete(self, quote_id):
-        pass
+    @marshal_with(NoteSchema)
+    def delete(self, note_id):
+        note = NoteModel.query.get(note_id)
+        note.delete()
 
 
-@doc(tags=['Notes'])
+@doc(tags=['Notes'], security=[{"basicAuth": []}])
 class NotesListResource(MethodResource):
     @auth.login_required
     @marshal_with(NoteSchema(many=True))
@@ -58,6 +58,7 @@ class NotesListResource(MethodResource):
         return note, 201
 
 
+@doc(tags=['Notes'])
 class NotesPublicResource(MethodResource):
     @marshal_with(NoteSchema(many=True))
     def get(self):
