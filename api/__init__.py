@@ -1,3 +1,4 @@
+import logging
 from config import Config
 from flask import Flask, request, g
 from flask_restful import Api, Resource, reqparse, abort
@@ -39,6 +40,12 @@ app.config.update({
     'APISPEC_SWAGGER_URL': '/swagger',
     'APISPEC_SWAGGER_UI_URL': '/swagger-ui'
 })
+
+logging.basicConfig(filename='record.log',
+                    level=logging.INFO,
+                    format=f'%(asctime)s %(levelname)s %(name)s : %(message)s')
+app.logger.setLevel(logging.INFO)
+logging.getLogger('werkzeug').setLevel(logging.INFO)
 
 api = UnicodeApi(app)
 db = SQLAlchemy(app)
