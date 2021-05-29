@@ -4,13 +4,19 @@ from api.resources.note import NoteResource, NotesListResource, \
 from api.resources.user import UserResource, UsersListResource
 from api.resources.tag import TagResource, TagsListResource
 from api.resources.token import TokenResource
+from api.resources.file import UploadPictureResource
 from config import Config
-from flask import render_template
+from flask import render_template, send_from_directory
 
 
 @app.route('/', methods=['GET'])
 def main_page():
     return render_template('index.html')
+
+
+@app.route('/uploads/<path:filename>')
+def download_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
 
 
 api.add_resource(UsersListResource,
@@ -40,6 +46,9 @@ api.add_resource(NoteSetTagsResource,
 api.add_resource(NotesFilterResource,
                  '/notes/filter',
                  )
+api.add_resource(UploadPictureResource,
+                 "/upload",
+                 )
 
 docs.register(UserResource)
 docs.register(UsersListResource)
@@ -50,5 +59,6 @@ docs.register(TagResource)
 docs.register(TagsListResource)
 docs.register(NoteSetTagsResource)
 docs.register(NotesFilterResource)
+docs.register(UploadPictureResource)
 if __name__ == '__main__':
     app.run(debug=Config.DEBUG, port=Config.PORT)

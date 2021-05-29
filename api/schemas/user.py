@@ -2,16 +2,16 @@ from api import ma
 from api.models.user import UserModel
 
 
-class UserSchema(ma.SQLAlchemySchema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserModel
-        # fields = ('id', 'username')
+        fields = ('id', 'username')
 
     id = ma.auto_field()
     username = ma.auto_field()
     _links = ma.Hyperlinks({
         'self': ma.URLFor('userresource', values=dict(user_id="<id>")),
-        'collection': ma.URLFor('UserListResource')
+        'collection': ma.URLFor('userslistresource')
     })
 
 

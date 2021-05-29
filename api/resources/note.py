@@ -5,6 +5,7 @@ from api.schemas.note import NoteSchema, NoteRequestSchema
 from flask_apispec.views import MethodResource
 from flask_apispec import marshal_with, doc, use_kwargs
 from webargs import fields
+from flask_babel import _
 import pdb
 
 
@@ -16,10 +17,11 @@ class NoteResource(MethodResource):
         author = g.user
         note = NoteModel.query.get(note_id)
         if not note:
-            app.logger.warning("Кто-то пытается получить нечто")
-            abort(404, error=f"Note with id={note_id} not found")
+            # app.logger.warning("Кто-то пытается получить нечто")
+            # abort(404, error=f"Note with id={note_id} not found")
+            abort(404, error=_("Note with id=%(note_id) not found"), note_id=note_id)
         if note.author != author:
-            abort(403, error=f"Forbidden")
+            abort(403, error=_("Forbidden"))
         return note, 200
 
     @auth.login_required
@@ -31,7 +33,7 @@ class NoteResource(MethodResource):
         if not note:
             abort(404, error=f"note {note_id} not found")
         if note.author != author:
-            abort(403, error=f"Forbidden")
+            abort(403, error=_(f"Forbidden"))
         note.text = kwargs["text"]
         note.private = kwargs["private"]
         note.save()
